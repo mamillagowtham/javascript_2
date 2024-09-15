@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <script src="https://apis.google.com/_/scs/abc-static/_/js/k=gapi.lb.en._ShUtMH1OvQ.O/m=gapi_iframes/rt=j/sv=1/d=1/ed=1/am=AABA/rs=AHpOoo9sEd_Wjj_xEtgO8qX69P7hAZI9cg/cb=gapi.loaded_0?le=scs" async=""></script><script src="https://apis.google.com/js/api.js?onload=__iframefcb61795" type="text/javascript" charset="UTF-8" gapi_processed="true"></script>
+ </head>
+  <body>
+    <form action="">
+      <div>
+        <input type="text" placeholder="name" id="name">
+
+        <div>
+          <label>Email</label>
+          <input type="text" name="Email" id="email" placeholder="Enter your email">
+        </div>
+
+        <div>
+          <label>Password</label>
+          <input type="password" name="password" id="password" autocomplete="on">
+        </div>
+
+        <button type="button" id="register" name="register">Register</button>
+      </div>
+    </form>
+
+    <a href="./Singin.html">Signin</a>
+  
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+  } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  import {
+    getDatabase,
+    ref,
+    set,
+  } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDwVgqOGnK94_mozu3YEWEXwpbGMcURZZI",
+    authDomain: "web-authentication-2e225.firebaseapp.com",
+    projectId: "web-authentication-2e225",
+    storageBucket: "web-authentication-2e225.appspot.com",
+    messagingSenderId: "318064869044",
+    appId: "1:318064869044:web:fe114d6ea60d63ff9ae1e1",
+  };
+
+  // new registration code start ..............
+
+  // for database methods
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  document.getElementById("register").addEventListener("click", function () {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let userName = document.getElementById("name").value;
+
+    const auth = getAuth(app);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+
+        const db = getDatabase();
+        set(ref(db, "users/" + user.uid), {
+          password: password,
+          email: email,
+          name: name,
+        });
+        alert("registered successfully");
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  });
+</script>
+<iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" tabindex="-1" vspace="0" width="100%" aria-hidden="true" id="I0_1726207044510" name="I0_1726207044510" src="https://web-authentication-2e225.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyDwVgqOGnK94_mozu3YEWEXwpbGMcURZZI&amp;appName=%5BDEFAULT%5D&amp;v=10.13.1&amp;eid=p&amp;usegapi=1&amp;jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en._ShUtMH1OvQ.O%2Fam%3DAABA%2Fd%3D1%2Frs%3DAHpOoo9sEd_Wjj_xEtgO8qX69P7hAZI9cg%2Fm%3D__features__#id=I0_1726207044510&amp;_gfid=I0_1726207044510&amp;parent=file%3A%2F%2F&amp;pfname=&amp;rpctoken=19666162" style="position: absolute; top: -100px; width: 1px; height: 1px;"></iframe></body></html>
