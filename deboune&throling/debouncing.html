@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input oninput="searchEngine()" />
+</body>
+</html>
+
+
+<script>
+// here data will be store certain time  ----------------------->2
+function debounce (func,delay)
+{
+    let timeoutId;
+
+    return function(arg)
+    {
+        clearTimeout(timeoutId)
+
+        timeoutId = setTimeout(()=>
+     {
+        func(arg)
+     },delay)
+    }
+}
+let fetching_data = debounce(fetchdata , 2000)
+
+
+//here data is retriving after stop typing ------------------------->3
+function fetchdata(query)
+{
+    console.log(`processing, ${query}`)
+}
+
+
+
+
+ // here actual data will come here  =-------------------------------->1
+ function searchEngine()
+ {
+    const query = event.target.value ;
+    fetching_data(event.target.value)
+ }
+
+</script>
