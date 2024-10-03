@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="text" />
+</body>
+
+</html>
+
+<script>
+
+
+    const throttle = (func, delay) => {
+        let previous = 0;
+
+        return function (arg) {
+            let now = new Date().getTime();
+
+            if (now - previous > delay) {
+                previous = now;
+
+                return func(arg);
+            }
+        }
+    }
+
+
+     let fetching_data = throttle(fetch,2000)
+
+
+ function fetch(query)
+ {
+    console.log(query);
+ }
+
+
+
+
+    document.getElementById("text").addEventListener("keyup", trottle)
+
+
+    function trottle() {
+        console.log(event.target.value);
+        fetching_data(event.target.value)
+    }
+</script>
